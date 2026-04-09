@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>A* Pathfinding</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 100vh; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="/static/script.js"></script>
+    <input type="text" id="searchBox" placeholder="Nhập địa điểm..." style="position:absolute;top:10px;left:50px;z-index:1000;width:250px;">
+    <button onclick="searchLocation()" style="position:absolute;top:10px;left:310px;z-index:1000;">Tìm</button>
+
+    <select id="mode" style="position:absolute;top:50px;left:50px;z-index:1000;">
+        <option value="walk">Đi bộ</option>
+        <option value="drive">Ô tô</option>
+    </select>
+
+</body>
+</html>
