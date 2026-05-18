@@ -1,25 +1,142 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>A* Pathfinding</title>
+<!doctype html>
+<html lang="vi">
+  <head>
+    <title>Tìm đường A* và Dijkstra</title>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
-        #map { height: 100vh; }
+      html,
+      body,
+      #map {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .toolbar {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 1000;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        max-width: min(760px, calc(100vw - 24px));
+        padding: 10px;
+        background: #ffffff;
+        border: 1px solid #d8dde6;
+        border-radius: 8px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+      }
+
+      .toolbar input,
+      .toolbar select,
+      .toolbar button {
+        height: 36px;
+        border: 1px solid #c7cfdb;
+        border-radius: 6px;
+        background: #ffffff;
+        color: #172033;
+        font-size: 14px;
+      }
+
+      .toolbar input {
+        width: min(280px, calc(100vw - 48px));
+        padding: 0 10px;
+      }
+
+      .toolbar select {
+        padding: 0 8px;
+      }
+
+      .toolbar button {
+        padding: 0 12px;
+        cursor: pointer;
+      }
+
+      .toolbar button:hover {
+        background: #f2f5f9;
+      }
+
+      .stats-panel {
+        position: absolute;
+        right: 12px;
+        bottom: 24px;
+        z-index: 1000;
+        width: min(320px, calc(100vw - 24px));
+        padding: 12px;
+        background: #ffffff;
+        border: 1px solid #d8dde6;
+        border-radius: 8px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+        color: #172033;
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .stats-panel h2 {
+        margin: 0 0 8px;
+        font-size: 16px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 6px 12px;
+      }
+
+      .muted {
+        color: #5c6b7d;
+      }
+
+      @media (max-width: 640px) {
+        .toolbar {
+          right: 12px;
+        }
+
+        .toolbar input,
+        .toolbar select,
+        .toolbar button {
+          flex: 1 1 130px;
+        }
+
+        .stats-panel {
+          left: 12px;
+          right: 12px;
+          bottom: 12px;
+          width: auto;
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="map"></div>
+
+    <div class="toolbar">
+      <input type="text" id="searchBox" placeholder="Nhập địa điểm..." />
+      <button id="searchButton" type="button">Tìm</button>
+      <select id="mode" aria-label="Phương tiện">
+        <option value="walk">Đi bộ</option>
+        <option value="drive">Ô tô</option>
+      </select>
+      <select id="algorithm" aria-label="Thuật toán">
+        <option value="astar">A*</option>
+        <option value="dijkstra">Dijkstra</option>
+      </select>
+      <button id="resetButton" type="button">Reset</button>
+    </div>
+
+    <section class="stats-panel">
+      <h2>Kết quả</h2>
+      <div id="status" class="muted">Sẵn sàng</div>
+      <div id="stats" class="stats-grid"></div>
+    </section>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="/static/script.js"></script>
-    <input type="text" id="searchBox" placeholder="Nhập địa điểm..." style="position:absolute;top:10px;left:50px;z-index:1000;width:250px;">
-    <button onclick="searchLocation()" style="position:absolute;top:10px;left:310px;z-index:1000;">Tìm</button>
-
-    <select id="mode" style="position:absolute;top:50px;left:50px;z-index:1000;">
-        <option value="walk">Đi bộ</option>
-        <option value="drive">Ô tô</option>
-    </select>
-
-</body>
+  </body>
 </html>
